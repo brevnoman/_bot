@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+
+  tgbot:
+    container_name: bot
+    build:
+      context: .
+    command: python3 main.py
+    restart: always
+    environment:
+      WEBAPP_PORT: 3001
+    env_file:
+      - ".env"
+    volumes:
+      - .:/app
+    ports:
+      - 8443:3001
