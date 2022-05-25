@@ -4,6 +4,7 @@ import os
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import logging
 from aiogram.dispatcher.filters import Text
+from aiogram.types import WebAppInfo
 from motor import motor_asyncio
 from aiogram import Bot, Dispatcher, executor, types
 import aiohttp
@@ -19,6 +20,18 @@ cluster = motor_asyncio.AsyncIOMotorClient(
 )
 collection = cluster.TestDB.TestCollection
 base_api_url = "https://coinpay.org.ua/"
+
+
+@dp.message_handler(commands="sex")
+async def cmd_start(message: types.Message):
+    await message.answer("test",
+                         reply_markup=types.InlineKeyboardMarkup().
+                         add(types.InlineKeyboardButton(
+                             text="test",
+                             web_app=WebAppInfo(
+                                 url="https://github.com/aiogram/aiogram/issues/891"
+                             )
+                         )))
 
 
 @dp.callback_query_handler(Text(startswith="start_"))
