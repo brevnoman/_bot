@@ -106,8 +106,9 @@ async def start_updating(call: types.CallbackQuery):
     await update_information(call, interval=user["interval"])
 
 
-async def update_information(call: types.CallbackQuery, interval):
-    await asyncio.sleep(interval)
+async def update_information(call: types.CallbackQuery, interval: int):
+    minute = 60
+    await asyncio.sleep(interval * minute)
     user = await collection.find_one({"_id": call.from_user.id})
     if user.get("is_active"):
         call["data"] = "turn_on_" + user["currency_pair"]
